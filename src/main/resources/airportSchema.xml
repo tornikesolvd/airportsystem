@@ -54,6 +54,57 @@
                                                                 <xs:element name="departureDate" type="xs:date"/>
                                                                 <xs:element name="departureTime" type="xs:dateTime"/>
                                                                 <xs:element name="delayed" type="xs:boolean"/>
+                                                                <xs:element name="aircraft">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="aircraftId"
+                                                                                        type="xs:string"/>
+                                                                            <xs:element name="aircraftType"
+                                                                                        type="xs:string"/>
+                                                                            <xs:element name="capacity" type="xs:int"/>
+                                                                            <xs:element name="pilots">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element
+                                                                                                maxOccurs="unbounded"
+                                                                                                name="pilot">
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element
+                                                                                                            name="pilotName"
+                                                                                                            type="xs:string"/>
+                                                                                                    <xs:element
+                                                                                                            name="licenseNumber"
+                                                                                                            type="xs:string"/>
+                                                                                                    <xs:element
+                                                                                                            name="flightHours"
+                                                                                                            type="xs:int"/>
+                                                                                                    <xs:element
+                                                                                                            name="certification"
+                                                                                                            type="xs:string"/>
+                                                                                                </xs:sequence>
+                                                                                            </xs:complexType>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                                <xs:element name="gate">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="gateNumber"
+                                                                                        type="xs:string"/>
+                                                                            <xs:element name="gateType"
+                                                                                        type="xs:string"/>
+                                                                            <xs:element name="isAvailable"
+                                                                                        type="xs:boolean"/>
+                                                                            <xs:element name="terminal"
+                                                                                        type="xs:string"/>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
                                                                 <xs:element name="passengers">
                                                                     <xs:complexType>
                                                                         <xs:sequence>

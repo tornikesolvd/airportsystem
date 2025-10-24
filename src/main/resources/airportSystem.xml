@@ -36,6 +36,31 @@
                     <departureDate>2025-10-15</departureDate>
                     <departureTime>2025-10-15T14:30:00</departureTime>
                     <delayed>false</delayed>
+                    <aircraft>
+                        <aircraftId>AC001</aircraftId>
+                        <aircraftType>Boeing 737</aircraftType>
+                        <capacity>180</capacity>
+                        <pilots>
+                            <pilot>
+                                <pilotName>Captain John Smith</pilotName>
+                                <licenseNumber>PIL001</licenseNumber>
+                                <flightHours>8500</flightHours>
+                                <certification>ATP</certification>
+                            </pilot>
+                            <pilot>
+                                <pilotName>First Officer Sarah Johnson</pilotName>
+                                <licenseNumber>PIL002</licenseNumber>
+                                <flightHours>3200</flightHours>
+                                <certification>CPL</certification>
+                            </pilot>
+                        </pilots>
+                    </aircraft>
+                    <gate>
+                        <gateNumber>A12</gateNumber>
+                        <gateType>International</gateType>
+                        <isAvailable>false</isAvailable>
+                        <terminal>Terminal 1</terminal>
+                    </gate>
                     <passengers>
                         <passenger>
                             <fullName>George Ziurich</fullName>
@@ -58,6 +83,31 @@
                     <departureDate>2025-10-15</departureDate>
                     <departureTime>2025-10-15T16:45:00</departureTime>
                     <delayed>true</delayed>
+                    <aircraft>
+                        <aircraftId>AC002</aircraftId>
+                        <aircraftType>Airbus A320</aircraftType>
+                        <capacity>150</capacity>
+                        <pilots>
+                            <pilot>
+                                <pilotName>Captain Mike Wilson</pilotName>
+                                <licenseNumber>PIL003</licenseNumber>
+                                <flightHours>9200</flightHours>
+                                <certification>ATP</certification>
+                            </pilot>
+                            <pilot>
+                                <pilotName>First Officer Lisa Brown</pilotName>
+                                <licenseNumber>PIL004</licenseNumber>
+                                <flightHours>2800</flightHours>
+                                <certification>CPL</certification>
+                            </pilot>
+                        </pilots>
+                    </aircraft>
+                    <gate>
+                        <gateNumber>B15</gateNumber>
+                        <gateType>International</gateType>
+                        <isAvailable>false</isAvailable>
+                        <terminal>Terminal 2</terminal>
+                    </gate>
                     <passengers>
                         <passenger>
                             <fullName>Tornike Akhvlediani</fullName>
@@ -86,6 +136,31 @@
                     <departureDate>2025-10-15</departureDate>
                     <departureTime>2025-10-15T10:20:00</departureTime>
                     <delayed>false</delayed>
+                    <aircraft>
+                        <aircraftId>AC003</aircraftId>
+                        <aircraftType>Boeing 787</aircraftType>
+                        <capacity>250</capacity>
+                        <pilots>
+                            <pilot>
+                                <pilotName>Captain David Lee</pilotName>
+                                <licenseNumber>PIL005</licenseNumber>
+                                <flightHours>12000</flightHours>
+                                <certification>ATP</certification>
+                            </pilot>
+                            <pilot>
+                                <pilotName>First Officer Emma Davis</pilotName>
+                                <licenseNumber>PIL006</licenseNumber>
+                                <flightHours>4500</flightHours>
+                                <certification>CPL</certification>
+                            </pilot>
+                        </pilots>
+                    </aircraft>
+                    <gate>
+                        <gateNumber>C08</gateNumber>
+                        <gateType>International</gateType>
+                        <isAvailable>false</isAvailable>
+                        <terminal>Terminal 1</terminal>
+                    </gate>
                     <passengers>
                         <passenger>
                             <fullName>George Ziurich</fullName>

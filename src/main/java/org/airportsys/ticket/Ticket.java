@@ -2,11 +2,17 @@ package org.airportsys.ticket;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.airportsys.adapter.BigDecimalAdapter;
+
+import java.math.BigDecimal;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Ticket {
     private String ticketId;
-    private double price;
+
+    @XmlJavaTypeAdapter(BigDecimalAdapter.class)
+    private BigDecimal price;
     private String flightNumber;
     private boolean checkedIn;
 
@@ -25,11 +31,11 @@ public class Ticket {
         this.ticketId = ticketId;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

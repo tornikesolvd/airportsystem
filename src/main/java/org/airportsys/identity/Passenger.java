@@ -25,7 +25,6 @@ public class Passenger {
     private List<Ticket> tickets;
 
     public Passenger() {
-        // No-arg constructor for JAXB
     }
 
     public Passenger(String fullName, String passportNumber) {
