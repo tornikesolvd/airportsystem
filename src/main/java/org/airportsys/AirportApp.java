@@ -3,10 +3,13 @@ package org.airportsys;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import org.airportsys.airport.Airport;
 import org.xml.sax.SAXException;
-import javax.xml.XMLConstants;
 
+import javax.xml.XMLConstants;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
@@ -17,13 +20,10 @@ import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
 
 /**
  * Airport System parser/validator main class
- *
+ * <p>
  * This class provides validator between xml and xsd, also parser/reader inside files. Its generally created for data processing
  * <p>javadoc with parser and mentioned list of elements  with XPath</p>
  * <ul>
@@ -36,7 +36,7 @@ import jakarta.xml.bind.Unmarshaller;
  *   <li><b>/airportSystem/passengers/passenger/tickets/ticket/ticketId</b> - Ticket ID list</li>
  *   <li><b>/airportSystem/passengers/passenger/tickets/ticket/price</b> - Ticket price list</li>
  * </ul>
- * 
+ *
  * @author Airport System Developer
  * @version 1.0
  */
@@ -97,30 +97,30 @@ public class AirportApp {
 
             System.out.println("Airport: " + airport.getAirportName() + " - " + airport.getLocation());
             if (airport.getTerminals() != null) {
-                airport.getTerminals().forEach(terminal -> 
-                    System.out.println("Terminal: " + terminal.getTerminalName())
+                airport.getTerminals().forEach(terminal ->
+                        System.out.println("Terminal: " + terminal.getTerminalName())
                 );
             }
             if (airport.getStaffList() != null) {
-                airport.getStaffList().forEach(staff -> 
-                    System.out.println("Staff: " + staff.getStaffName() + " " + staff.getRole())
+                airport.getStaffList().forEach(staff ->
+                        System.out.println("Staff: " + staff.getStaffName() + " " + staff.getRole())
                 );
             }
 
             if (airport.getAirlinesList() != null) {
                 airport.getAirlinesList().forEach(airline -> {
-                    System.out.println("Airline: " + airline.getAirlineName() + " " +  airline.getAirlineCode());
+                    System.out.println("Airline: " + airline.getAirlineName() + " " + airline.getAirlineCode());
                     if (airline.getFlights() != null) {
                         airline.getFlights().forEach(flight -> {
                             System.out.println("Flight " + flight.getFlightNumber() + " to " +
-                                flight.getDestination() + " at " + flight.getDepartureTime());
+                                    flight.getDestination() + " at " + flight.getDepartureTime());
                             if (flight.getPassengers() != null) {
                                 flight.getPassengers().forEach(passenger -> {
                                     System.out.println("  Passenger: " + passenger.getFullName() + " " + passenger.getPassportNumber());
                                     if (passenger.getTickets() != null) {
-                                        passenger.getTickets().forEach(ticket -> 
-                                            System.out.println("    Ticket " + ticket.getTicketId() + ": $" +
-                                                ticket.getPrice() + " " + "Flight " + " " + ticket.getFlightNumber())
+                                        passenger.getTickets().forEach(ticket ->
+                                                System.out.println("    Ticket " + ticket.getTicketId() + ": $" +
+                                                        ticket.getPrice() + " " + "Flight " + " " + ticket.getFlightNumber())
                                         );
                                     }
                                 });
@@ -138,8 +138,8 @@ public class AirportApp {
             ObjectMapper mapper = new ObjectMapper()
                     .configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true)
                     .findAndRegisterModules();
-            Airport airport= mapper.readValue(new File("src/main/resources/airport.json"), Airport.class);
-            System.out.println("Airport: " + airport.getAirportName()) ;
+            Airport airport = mapper.readValue(new File("src/main/resources/airport.json"), Airport.class);
+            System.out.println("Airport: " + airport.getAirportName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,23 +150,23 @@ public class AirportApp {
 
             System.out.println();
             System.out.println();
-            
+
             // 1. Airport name
             String airportName = JsonPath.read(jsonContent, "$.airportName");
             System.out.println("Airport Name: " + airportName);
-            
+
             // 2. Airport location
             String location = JsonPath.read(jsonContent, "$.location");
             System.out.println("Airport Location: " + location);
-            
+
             // 3. List of all terminal names
             java.util.List<String> terminalNames = JsonPath.read(jsonContent, "$.terminals[*].terminalName");
             System.out.println("Terminal Names: " + terminalNames);
-            
+
             // 4. List of all airline names
             java.util.List<String> airlineNames = JsonPath.read(jsonContent, "$.airlinesList[*].airlineName");
             System.out.println("Airline Names: " + airlineNames);
-            
+
             // 6. List of passenger names
             java.util.List<String> passengerNames = JsonPath.read(jsonContent, "$.airlinesList[*].flights[*].passengers[*].fullName");
             System.out.println("Passenger Names: " + passengerNames);
@@ -174,7 +174,7 @@ public class AirportApp {
             // 7. List of all ticket prices
             java.util.List<Double> ticketPrices = JsonPath.read(jsonContent, "$.airlinesList[*].flights[*].passengers[*].tickets[*].price");
             System.out.println("Ticket Prices: " + ticketPrices);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }

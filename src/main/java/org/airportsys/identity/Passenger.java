@@ -16,10 +16,10 @@ public class Passenger {
 
     private String fullName;
     private String passportNumber;
-    
+
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate birthDate;
-    
+
     @XmlElementWrapper(name = "tickets")
     @XmlElement(name = "ticket")
     private List<Ticket> tickets;
@@ -28,7 +28,7 @@ public class Passenger {
         // No-arg constructor for JAXB
     }
 
-    public Passenger(String fullName, String passportNumber){
+    public Passenger(String fullName, String passportNumber) {
         this.fullName = fullName;
         this.passportNumber = passportNumber;
     }
@@ -38,7 +38,7 @@ public class Passenger {
     }
 
     public void setFullName(String fullName) {
-        this.fullName=fullName;
+        this.fullName = fullName;
     }
 
     public String getPassportNumber() {
@@ -50,7 +50,7 @@ public class Passenger {
     }
 
     public LocalDate getBirthDate() {
-        return  birthDate;
+        return birthDate;
     }
 
     public void setBirthDate(LocalDate birthDate) {
@@ -58,7 +58,7 @@ public class Passenger {
     }
 
     public List<Ticket> getTickets() {
-        return  tickets;
+        return tickets;
     }
 
     public void setTickets(List<Ticket> tickets) {

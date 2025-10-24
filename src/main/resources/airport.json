@@ -1,109 +1,109 @@
 {
-    "airportName": "Tbilisi International Airport",
-    "location": "Tbilisi, Georgia",
-    "international": "true",
-    "terminals": [
-      {
-        "terminalName": "Terminal 1"
-      },
-      {
-        "terminalName": "Terminal 2"
-      }
-    ],
-    "staffList": [
-      {
-        "staffName": "Sasha Medved",
-        "role": "Pilot"
-      },
-      {
-        "staffName": "Giorgi Zambaxidze",
-        "role": "Flight Attendant"
-      },
-      {
-        "staffName": "Anka Gurchiani",
-        "role": "Ground Crew"
-      }
-    ],
-    "airlinesList": [
-      {
-        "airlineName": "Turkish Airlines",
-        "airlineCode": "TA",
-        "flights": [
+  "airportName": "Tbilisi International Airport",
+  "location": "Tbilisi, Georgia",
+  "international": "true",
+  "terminals": [
+    {
+      "terminalName": "Terminal 1"
+    },
+    {
+      "terminalName": "Terminal 2"
+    }
+  ],
+  "staffList": [
+    {
+      "staffName": "Sasha Medved",
+      "role": "Pilot"
+    },
+    {
+      "staffName": "Giorgi Zambaxidze",
+      "role": "Flight Attendant"
+    },
+    {
+      "staffName": "Anka Gurchiani",
+      "role": "Ground Crew"
+    }
+  ],
+  "airlinesList": [
+    {
+      "airlineName": "Turkish Airlines",
+      "airlineCode": "TA",
+      "flights": [
+        {
+          "flightNumber": "TA225",
+          "destination": "Istanbul",
+          "departureDate": "2025-10-15",
+          "departureTime": "2025-10-15T14:30:00",
+          "delayed": "false",
+          "passengers": [
             {
-              "flightNumber": "TA225",
-              "destination": "Istanbul",
-              "departureDate": "2025-10-15",
-              "departureTime": "2025-10-15T14:30:00",
-              "delayed": "false",
-              "passengers": [
+              "fullName": "George Ziurich",
+              "passportNumber": "4203453123",
+              "birthDate": "1985-12-20",
+              "tickets": [
                 {
-                  "fullName": "George Ziurich",
-                  "passportNumber": "4203453123",
-                  "birthDate": "1985-12-20",
-                  "tickets": [
-                    {
-                      "ticketId": "TKT002",
-                      "price": "320.00",
-                      "checkedIn": "false",
-                      "flightNumber": "TA225"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "flightNumber": "TA400",
-              "destination": "Atlanta",
-              "departureDate": "2025-10-15",
-              "departureTime": "2025-10-15T16:45:00",
-              "delayed": "true",
-              "passengers": [
-                {
-                  "fullName": "Tornike Akhvlediani",
-                  "passportNumber": "40101023348",
-                  "birthDate": "1990-05-15",
-                  "tickets": [
-                    {
-                      "ticketId": "TKT001",
-                      "price": "450.50",
-                      "checkedIn": "true",
-                      "flightNumber": "TA400"
-                    }
-                  ]
+                  "ticketId": "TKT002",
+                  "price": "320.00",
+                  "checkedIn": "false",
+                  "flightNumber": "TA225"
                 }
               ]
             }
-        ]
-      },
-      {
-        "airlineName": "Sky Ticket",
-        "airlineCode": "ST",
-        "flights": [
-          {
-            "flightNumber": "ST555",
-            "destination": "Los Angeles",
-            "departureDate": "2025-10-15",
-            "departureTime": "2025-10-15T10:20:00",
-            "delayed": "false",
-            "passengers": [
-              {
-                "fullName": "George Ziurich",
-                "passportNumber": "4203453123",
-                "birthDate": "1985-12-20",
-                "tickets": [
-                  {
-                    "ticketId": "TKT003",
-                    "price": "280.75",
-                    "checkedIn": "false",
-                    "flightNumber": "ST555"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+          ]
+        },
+        {
+          "flightNumber": "TA400",
+          "destination": "Atlanta",
+          "departureDate": "2025-10-15",
+          "departureTime": "2025-10-15T16:45:00",
+          "delayed": "true",
+          "passengers": [
+            {
+              "fullName": "Tornike Akhvlediani",
+              "passportNumber": "40101023348",
+              "birthDate": "1990-05-15",
+              "tickets": [
+                {
+                  "ticketId": "TKT001",
+                  "price": "450.50",
+                  "checkedIn": "true",
+                  "flightNumber": "TA400"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "airlineName": "Sky Ticket",
+      "airlineCode": "ST",
+      "flights": [
+        {
+          "flightNumber": "ST555",
+          "destination": "Los Angeles",
+          "departureDate": "2025-10-15",
+          "departureTime": "2025-10-15T10:20:00",
+          "delayed": "false",
+          "passengers": [
+            {
+              "fullName": "George Ziurich",
+              "passportNumber": "4203453123",
+              "birthDate": "1985-12-20",
+              "tickets": [
+                {
+                  "ticketId": "TKT003",
+                  "price": "280.75",
+                  "checkedIn": "false",
+                  "flightNumber": "ST555"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 }
 

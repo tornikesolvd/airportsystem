@@ -1,77 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+           elementFormDefault="qualified">
     <xs:element name="airport">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="airportName" type="xs:string"/>
+                <xs:element name="location" type="xs:string"/>
+                <xs:element name="international" type="xs:boolean"/>
+                <xs:element name="terminals">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="airportName" type="xs:string" />
-                            <xs:element name="location" type="xs:string" />
-                            <xs:element name="international" type="xs:boolean" />
-                            <xs:element name="terminals">
+                            <xs:element maxOccurs="unbounded" name="terminal">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element maxOccurs="unbounded" name="terminal">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element name="terminalName" type="xs:string" />
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
+                                        <xs:element name="terminalName" type="xs:string"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="staff">
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="staff">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" name="staffMember">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element maxOccurs="unbounded" name="staffMember">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element minOccurs="0" name="staffNname" type="xs:string" />
-                                                    <xs:element minOccurs="0" name="staffName" type="xs:string" />
-                                                    <xs:element name="role" type="xs:string" />
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
+                                        <xs:element minOccurs="0" name="staffNname" type="xs:string"/>
+                                        <xs:element minOccurs="0" name="staffName" type="xs:string"/>
+                                        <xs:element name="role" type="xs:string"/>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="airlines">
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="airlines">
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element maxOccurs="unbounded" name="airline">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="airlineName" type="xs:string" />
-                                        <xs:element name="airlineCode" type="xs:string" />
+                                        <xs:element name="airlineName" type="xs:string"/>
+                                        <xs:element name="airlineCode" type="xs:string"/>
                                         <xs:element name="flights">
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element maxOccurs="unbounded" name="flight">
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="flightNumber" type="xs:string" />
-                                                                <xs:element name="destination" type="xs:string" />
-                                                                <xs:element name="departureDate" type="xs:date" />
-                                                                <xs:element name="departureTime" type="xs:dateTime" />
-                                                                <xs:element name="delayed" type="xs:boolean" />
+                                                                <xs:element name="flightNumber" type="xs:string"/>
+                                                                <xs:element name="destination" type="xs:string"/>
+                                                                <xs:element name="departureDate" type="xs:date"/>
+                                                                <xs:element name="departureTime" type="xs:dateTime"/>
+                                                                <xs:element name="delayed" type="xs:boolean"/>
                                                                 <xs:element name="passengers">
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element maxOccurs="unbounded" name="passenger">
+                                                                            <xs:element maxOccurs="unbounded"
+                                                                                        name="passenger">
                                                                                 <xs:complexType>
                                                                                     <xs:sequence>
-                                                                                        <xs:element name="fullName" type="xs:string" />
-                                                                                        <xs:element name="passportNumber" type="xs:unsignedLong" />
-                                                                                        <xs:element name="birthDate" type="xs:date" />
+                                                                                        <xs:element name="fullName"
+                                                                                                    type="xs:string"/>
+                                                                                        <xs:element
+                                                                                                name="passportNumber"
+                                                                                                type="xs:unsignedLong"/>
+                                                                                        <xs:element name="birthDate"
+                                                                                                    type="xs:date"/>
                                                                                         <xs:element name="tickets">
                                                                                             <xs:complexType>
                                                                                                 <xs:sequence>
-                                                                                                    <xs:element maxOccurs="unbounded" name="ticket">
+                                                                                                    <xs:element
+                                                                                                            maxOccurs="unbounded"
+                                                                                                            name="ticket">
                                                                                                         <xs:complexType>
                                                                                                             <xs:sequence>
-                                                                                                                <xs:element name="ticketId" type="xs:string" />
-                                                                                                                <xs:element name="price" type="xs:decimal" />
-                                                                                                                <xs:element name="checkedIn" type="xs:boolean" />
-                                                                                                                <xs:element name="flightNumber" type="xs:string" />
+                                                                                                                <xs:element
+                                                                                                                        name="ticketId"
+                                                                                                                        type="xs:string"/>
+                                                                                                                <xs:element
+                                                                                                                        name="price"
+                                                                                                                        type="xs:decimal"/>
+                                                                                                                <xs:element
+                                                                                                                        name="checkedIn"
+                                                                                                                        type="xs:boolean"/>
+                                                                                                                <xs:element
+                                                                                                                        name="flightNumber"
+                                                                                                                        type="xs:string"/>
                                                                                                             </xs:sequence>
                                                                                                         </xs:complexType>
                                                                                                     </xs:element>
@@ -96,7 +112,7 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

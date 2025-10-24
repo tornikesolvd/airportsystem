@@ -1,10 +1,11 @@
 package org.airportsys.adapter;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+
 import java.time.LocalDateTime;
 
 public class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
-    
+
     @Override
     public LocalDateTime unmarshal(String dateTimeString) throws Exception {
         if (dateTimeString == null || dateTimeString.isEmpty()) {

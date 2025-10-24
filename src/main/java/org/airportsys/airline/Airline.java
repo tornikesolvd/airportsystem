@@ -13,7 +13,7 @@ public class Airline {
 
     private String airlineName;
     private String airlineCode;
-    
+
     @XmlElementWrapper(name = "flights")
     @XmlElement(name = "flight")
     private List<Flight> flights;

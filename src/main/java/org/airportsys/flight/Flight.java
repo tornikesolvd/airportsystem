@@ -8,6 +8,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.airportsys.adapter.LocalDateAdapter;
 import org.airportsys.adapter.LocalDateTimeAdapter;
 import org.airportsys.identity.Passenger;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,13 +18,13 @@ public class Flight {
 
     private String flightNumber;
     private String destination;
-    
+
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate departureDate;
-    
+
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     private LocalDateTime departureTime;
-    
+
     private boolean delayed;
 
     @XmlElementWrapper(name = "passengers")

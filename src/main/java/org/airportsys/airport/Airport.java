@@ -1,10 +1,6 @@
 package org.airportsys.airport;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementWrapper;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 import org.airportsys.airline.Airline;
 import org.airportsys.identity.Staff;
 import org.airportsys.terminal.Terminal;
@@ -36,7 +32,7 @@ public class Airport {
         // No-arg constructor for JAXB
     }
 
-    public Airport(String name, String location){
+    public Airport(String name, String location) {
         this.airportName = name;
         this.location = location;
     }
