@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<airport>
+        <airportName>Tbilisi International Airport</airportName>
+        <location>Tbilisi, Georgia</location>
+        <international>true</international>
+        <terminals>
+            <terminal>
+                <terminalName>Terminal 1</terminalName>
+            </terminal>
+            <terminal>
+                <terminalName>Terminal 2</terminalName>
+            </terminal>
+        </terminals>
+        <staff>
+            <staffMember>
+                <staffName>Sasha Medved</staffName>
+                <role>Pilot</role>
+            </staffMember>
+            <staffMember>
+                <staffName>Giorgi Zambaxidze</staffName>
+                <role>Flight Attendant</role>
+            </staffMember>
+            <staffMember>
+                <staffName>Anka Gurchiani</staffName>
+                <role>Ground Crew</role>
+            </staffMember>
+        </staff>
+        <airlines>
+        <airline>
+            <airlineName>Turkish Airlines</airlineName>
+            <airlineCode>TA</airlineCode>
+            <flights>
+                <flight>
+                    <flightNumber>TA225</flightNumber>
+                    <destination>Istanbul</destination>
+                    <departureDate>2025-10-15</departureDate>
+                    <departureTime>2025-10-15T14:30:00</departureTime>
+                    <delayed>false</delayed>
+                    <passengers>
+                        <passenger>
+                            <fullName>George Ziurich</fullName>
+                            <passportNumber>4203453123</passportNumber>
+                            <birthDate>1985-12-20</birthDate>
+                            <tickets>
+                                <ticket>
+                                    <ticketId>TKT002</ticketId>
+                                    <price>320.00</price>
+                                    <checkedIn>false</checkedIn>
+                                    <flightNumber>TA225</flightNumber>
+                                </ticket>
+                            </tickets>
+                        </passenger>
+                    </passengers>
+                </flight>
+                <flight>
+                    <flightNumber>TA400</flightNumber>
+                    <destination>Atlanta</destination>
+                    <departureDate>2025-10-15</departureDate>
+                    <departureTime>2025-10-15T16:45:00</departureTime>
+                    <delayed>true</delayed>
+                    <passengers>
+                        <passenger>
+                            <fullName>Tornike Akhvlediani</fullName>
+                            <passportNumber>40101023348</passportNumber>
+                            <birthDate>1990-05-15</birthDate>
+                            <tickets>
+                                <ticket>
+                                    <ticketId>TKT001</ticketId>
+                                    <price>450.50</price>
+                                    <checkedIn>true</checkedIn>
+                                    <flightNumber>TA400</flightNumber>
+                                </ticket>
+                            </tickets>
+                        </passenger>
+                    </passengers>
+                </flight>
+            </flights>
+        </airline>
+        <airline>
+            <airlineName>Sky Ticket</airlineName>
+            <airlineCode>ST</airlineCode>
+            <flights>
+                <flight>
+                    <flightNumber>ST555</flightNumber>
+                    <destination>Los Angeles</destination>
+                    <departureDate>2025-10-15</departureDate>
+                    <departureTime>2025-10-15T10:20:00</departureTime>
+                    <delayed>false</delayed>
+                    <passengers>
+                        <passenger>
+                            <fullName>George Ziurich</fullName>
+                            <passportNumber>4203453123</passportNumber>
+                            <birthDate>1985-12-20</birthDate>
+                            <tickets>
+                                <ticket>
+                                    <ticketId>TKT003</ticketId>
+                                    <price>280.75</price>
+                                    <checkedIn>false</checkedIn>
+                                    <flightNumber>ST555</flightNumber>
+                                </ticket>
+                            </tickets>
+                        </passenger>
+                    </passengers>
+                </flight>
+            </flights>
+        </airline>
+    </airlines>
+</airport>
+
