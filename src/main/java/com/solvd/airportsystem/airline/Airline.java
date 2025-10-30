@@ -11,12 +11,21 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Airline {
 
+    private Long airlineId;
     private String airlineName;
     private String airlineCode;
 
     @XmlElementWrapper(name = "flights")
     @XmlElement(name = "flight")
     private List<Flight> flights;
+
+    public Long getAirlineId() {
+        return airlineId;
+    }
+
+    public void setAirlineId(Long airline_id) {
+        this.airlineId = airlineId;
+    }
 
     public String getAirlineName() {
         return airlineName;

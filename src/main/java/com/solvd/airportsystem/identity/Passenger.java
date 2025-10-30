@@ -14,6 +14,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Passenger {
 
+    private Long passengerId;
     private String fullName;
     private String passportNumber;
 
@@ -27,9 +28,17 @@ public class Passenger {
     public Passenger() {
     }
 
-    public Passenger(String fullName, String passportNumber) {
+    public Passenger(Long passengerId, String fullName, String passportNumber) {
         this.fullName = fullName;
         this.passportNumber = passportNumber;
+    }
+
+    public Long getPassengerId() {
+        return passengerId;
+    }
+
+    public void setPassengerId(Long passengerId) {
+        this.passengerId = passengerId;
     }
 
     public String getFullName() {

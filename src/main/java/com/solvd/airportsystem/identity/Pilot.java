@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Pilot {
 
+    private Long pilotId;
     private String pilotName;
     private String licenseNumber;
     private int flightHours;
@@ -14,11 +15,20 @@ public class Pilot {
     public Pilot() {
     }
 
-    public Pilot(String pilotName, String licenseNumber, int flightHours, String certification) {
+    public Pilot(Long pilotId, String pilotName, String licenseNumber, int flightHours, String certification) {
+        this.pilotId = pilotId;
         this.pilotName = pilotName;
         this.licenseNumber = licenseNumber;
         this.flightHours = flightHours;
         this.certification = certification;
+    }
+
+    public Long getPilotId() {
+        return pilotId;
+    }
+
+    public void setPilotId(Long pilotId) {
+        this.pilotId = pilotId;
     }
 
     public String getPilotName() {
