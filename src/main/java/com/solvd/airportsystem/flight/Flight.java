@@ -18,7 +18,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Flight {
 
-    private Long flightId;
+    private Long id;
     private String flightNumber;
     private String destination;
 
@@ -37,12 +37,12 @@ public class Flight {
     private Aircraft aircraft;
     private Gate gate;
 
-    public Long getFlightId() {
-        return flightId;
+    public Long getId() {
+        return id;
     }
 
-    public void setFlightId(Long flightId) {
-        this.flightId = flightId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public boolean isDelayed() {

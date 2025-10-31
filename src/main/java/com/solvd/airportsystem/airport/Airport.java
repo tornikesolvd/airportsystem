@@ -11,7 +11,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Airport {
 
-    private Long airportId;
+    private Long id;
     private String airportName;
     private String location;
 
@@ -33,18 +33,18 @@ public class Airport {
         // No-arg constructor for JAXB
     }
 
-    public Airport(Long airportId, String name, String location) {
-        this.airportId = airportId;
+    public Airport(Long id, String name, String location) {
+        this.id = id;
         this.airportName = name;
         this.location = location;
     }
 
-    public Long getAirportId() {
-        return airportId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAirportId(Long airportId) {
-        this.airportId = airportId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAirportName() {

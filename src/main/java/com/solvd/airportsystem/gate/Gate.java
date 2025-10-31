@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Gate {
 
-    private Long gateId;
+    private Long id;
     private String gateNumber;
     private String gateType;
     private boolean available;
@@ -15,20 +15,20 @@ public class Gate {
     public Gate() {
     }
 
-    public Gate(Long gateId, String gateNumber, String gateType, boolean isAvailable, String terminal) {
-        this.gateId = gateId;
+    public Gate(Long id, String gateNumber, String gateType, boolean isAvailable, String terminal) {
+        this.id = id;
         this.gateNumber = gateNumber;
         this.gateType = gateType;
         this.available = isAvailable;
         this.terminal = terminal;
     }
 
-    public Long getGateId() {
-        return gateId;
+    public Long getId() {
+        return id;
     }
 
-    public void setGateId(Long gateId) {
-        this.gateId = gateId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getGateNumber() {

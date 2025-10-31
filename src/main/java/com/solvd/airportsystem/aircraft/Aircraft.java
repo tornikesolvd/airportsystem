@@ -11,7 +11,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Aircraft {
 
-    private Long aircraftId;
+    private Long id;
     private String aircraftType;
     private Integer capacity;
 
@@ -22,18 +22,18 @@ public class Aircraft {
     public Aircraft() {
     }
 
-    public Aircraft(Long aircraftId, String aircraftType, Integer capacity) {
-        this.aircraftId = aircraftId;
+    public Aircraft(Long id, String aircraftType, Integer capacity) {
+        this.id = id;
         this.aircraftType = aircraftType;
         this.capacity = capacity;
     }
 
-    public Long getAircraftId() {
-        return aircraftId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAircraftId(Long aircraftId) {
-        this.aircraftId = aircraftId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAircraftType() {

@@ -6,19 +6,18 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Terminal {
 
-    private Long terminalId;
+    private Long id;
     private String terminalName;
 
     public Terminal() {
     }
 
-    public Long getTerminalId() {
-        return terminalId
-                ;
+    public Long getId() {
+        return id;
     }
 
-    public void setTerminalId(Long terminalId) {
-        this.terminalId = terminalId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTerminalName() {

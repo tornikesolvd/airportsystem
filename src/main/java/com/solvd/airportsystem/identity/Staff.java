@@ -6,16 +6,16 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Staff {
 
-    private Long staffId;
+    private Long id;
     private String staffName;
     private String role;
 
-    public Long getStaffId() {
-        return staffId;
+    public Long getId() {
+        return id;
     }
 
-    public void setStaffId(Long staffId) {
-        this.staffId = staffId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getStaffName() {

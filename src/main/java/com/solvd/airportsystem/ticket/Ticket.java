@@ -9,7 +9,8 @@ import java.math.BigDecimal;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Ticket {
-    private String ticketId;
+
+    private Long id;
 
     @XmlJavaTypeAdapter(BigDecimalAdapter.class)
     private BigDecimal price;
@@ -19,16 +20,16 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String ticketId) {
-        this.ticketId = ticketId;
+    public Ticket(Long id) {
+        this.id = id;
     }
 
-    public String getTicketId() {
-        return ticketId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTicketId(String ticketId) {
-        this.ticketId = ticketId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BigDecimal getPrice() {

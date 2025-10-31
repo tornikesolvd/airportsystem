@@ -11,7 +11,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Airline {
 
-    private Long airlineId;
+    private Long id;
     private String airlineName;
     private String airlineCode;
 
@@ -19,12 +19,12 @@ public class Airline {
     @XmlElement(name = "flight")
     private List<Flight> flights;
 
-    public Long getAirlineId() {
-        return airlineId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAirlineId(Long airline_id) {
-        this.airlineId = airlineId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAirlineName() {
