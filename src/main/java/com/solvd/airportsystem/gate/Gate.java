@@ -52,7 +52,7 @@ public class Gate {
     }
 
     public void setAvailable(boolean available) {
-        available = available;
+        this.available = available;
     }
 
     public String getTerminal() {

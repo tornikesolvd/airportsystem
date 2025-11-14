@@ -1,6 +1,6 @@
 package com.solvd.airportsystem.parser;
 
-import com.solvd.airportsystem.airport.Airport;
+import com.solvd.airportsystem.domain.Airport;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -43,7 +43,7 @@ public class JAXBParser {
                                     System.out.println("      Passenger: " + passenger.getFullName());
                                     if (passenger.getTickets() != null) {
                                         passenger.getTickets().forEach(ticket ->
-                                                System.out.println("        Ticket: " + ticket.getTicketId() + " - $" + ticket.getPrice())
+                                                System.out.println("        Ticket: " + ticket.getId() + " - $" + ticket.getPrice())
                                         );
                                     }
                                 });

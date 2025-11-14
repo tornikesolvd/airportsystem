@@ -2,7 +2,7 @@ package com.solvd.airportsystem.parser;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.solvd.airportsystem.airport.Airport;
+import com.solvd.airportsystem.domain.Airport;
 
 import java.io.File;
 
@@ -42,7 +42,7 @@ public class JacksonParser {
                                     System.out.println("      Passenger: " + passenger.getFullName());
                                     if (passenger.getTickets() != null) {
                                         passenger.getTickets().forEach(ticket ->
-                                                System.out.println("        Ticket: " + ticket.getTicketId() + " - $" + ticket.getPrice())
+                                                System.out.println("        Ticket: " + ticket.getId() + " - $" + ticket.getPrice())
                                         );
                                     }
                                 });

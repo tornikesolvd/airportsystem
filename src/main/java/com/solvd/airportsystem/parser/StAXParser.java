@@ -1,12 +1,12 @@
 package com.solvd.airportsystem.parser;
 
-import com.solvd.airportsystem.airline.Airline;
-import com.solvd.airportsystem.airport.Airport;
-import com.solvd.airportsystem.flight.Flight;
-import com.solvd.airportsystem.identity.Passenger;
+import com.solvd.airportsystem.domain.Airline;
+import com.solvd.airportsystem.domain.Airport;
+import com.solvd.airportsystem.domain.Flight;
+import com.solvd.airportsystem.domain.Passenger;
 import com.solvd.airportsystem.identity.Staff;
 import com.solvd.airportsystem.terminal.Terminal;
-import com.solvd.airportsystem.ticket.Ticket;
+import com.solvd.airportsystem.domain.Ticket;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
