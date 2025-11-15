@@ -4,8 +4,8 @@ import com.solvd.airportsystem.domain.Airline;
 import com.solvd.airportsystem.domain.Flight;
 import com.solvd.airportsystem.persistence.repository.AirlineRepository;
 import com.solvd.airportsystem.persistence.repository.FlightRepository;
-import com.solvd.airportsystem.persistence.repository.impl.AirlineRepositoryImpl;
-import com.solvd.airportsystem.persistence.repository.impl.FlightRepositoryImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.AirlineMapperImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.FlightMapperImpl;
 import com.solvd.airportsystem.service.AirlineService;
 
 import java.util.List;
@@ -17,8 +17,8 @@ public class AirlineServiceImpl implements AirlineService {
     private final FlightRepository flightRepository;
 
     public AirlineServiceImpl() {
-        this.airlineRepository = new AirlineRepositoryImpl();
-        this.flightRepository = new FlightRepositoryImpl();
+        this.airlineRepository = new AirlineMapperImpl();
+        this.flightRepository = new FlightMapperImpl();
     }
 
     @Override
@@ -26,7 +26,6 @@ public class AirlineServiceImpl implements AirlineService {
         airline.setId(null);
         airlineRepository.create(airline);
 
-        // Create nested Flights if they exist
         if (airline.getFlights() != null && !airline.getFlights().isEmpty()) {
             for (Flight flight : airline.getFlights()) {
                 if (flight.getId() == null) {

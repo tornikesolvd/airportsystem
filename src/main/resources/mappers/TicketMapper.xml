@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airportsystem.persistence.repository.TicketRepository">
+
+    <sql id="ticketColumns">
+        id,
+        identifier,
+        price,
+        checked_in
+    </sql>
+
+    <resultMap id="TicketResultMap" type="Ticket" autoMapping="false">
+        <id property="id" column="id"/>
+        <result property="flightNumber" column="identifier"/>
+        <result property="price" column="price" jdbcType="DECIMAL"/>
+        <result property="checkedIn" column="checked_in"/>
+    </resultMap>
+
+    <insert id="create" parameterType="Ticket" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO tickets (flight_id, passenger_id, identifier, price, checked_in)
+        VALUES (1, 1, #{flightNumber}, #{price}, #{checkedIn})
+    </insert>
+
+    <update id="update" parameterType="Ticket">
+        UPDATE tickets
+        SET price = #{price}, checked_in = #{checkedIn}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM tickets WHERE id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultMap="TicketResultMap">
+        SELECT
+        <include refid="ticketColumns"/>
+        FROM tickets
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="TicketResultMap">
+        SELECT
+        <include refid="ticketColumns"/>
+        FROM tickets
+    </select>
+
+</mapper>

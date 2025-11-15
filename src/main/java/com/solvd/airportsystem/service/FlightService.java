@@ -17,6 +17,6 @@ public interface FlightService {
 
     List<Flight> findAll();
 
-    List<Flight> findAllWithDetails();
+    List<Flight> findAllWithAllData();
 }
 

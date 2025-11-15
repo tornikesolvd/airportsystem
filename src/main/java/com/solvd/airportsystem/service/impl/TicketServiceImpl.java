@@ -1,7 +1,7 @@
 package com.solvd.airportsystem.service.impl;
 
 import com.solvd.airportsystem.persistence.repository.TicketRepository;
-import com.solvd.airportsystem.persistence.repository.impl.TicketRepositoryImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.TicketMapperImpl;
 import com.solvd.airportsystem.service.TicketService;
 import com.solvd.airportsystem.domain.Ticket;
 
@@ -13,7 +13,7 @@ public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
 
     public TicketServiceImpl() {
-        this.ticketRepository = new TicketRepositoryImpl();
+        this.ticketRepository = new TicketMapperImpl();
     }
 
     @Override

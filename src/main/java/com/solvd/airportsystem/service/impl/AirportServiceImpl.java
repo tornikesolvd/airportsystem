@@ -2,7 +2,7 @@ package com.solvd.airportsystem.service.impl;
 
 import com.solvd.airportsystem.domain.Airport;
 import com.solvd.airportsystem.persistence.repository.AirportRepository;
-import com.solvd.airportsystem.persistence.repository.impl.AirportRepositoryImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.AirportMapperImpl;
 import com.solvd.airportsystem.service.AirportService;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class AirportServiceImpl implements AirportService {
     private final AirportRepository airportRepository;
 
     public AirportServiceImpl() {
-        this.airportRepository = new AirportRepositoryImpl();
+        this.airportRepository = new AirportMapperImpl();
     }
 
     @Override

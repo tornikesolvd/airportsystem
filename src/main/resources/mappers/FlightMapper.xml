@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airportsystem.persistence.repository.FlightRepository">
+
+    <sql id="flightColumns">
+        id,
+        flight_number,
+        destination,
+        departure_date,
+        departure_time,
+        is_delayed
+    </sql>
+
+    <sql id="flightColumnsWithAlias">
+        f.id AS flight_id,
+        f.flight_number,
+        f.destination,
+        f.departure_date,
+        f.departure_time,
+        f.is_delayed
+    </sql>
+
+    <sql id="aircraftColumnsWithAlias">
+        act.id AS aircraft_id,
+        act.type AS aircraft_type,
+        act.capacity AS aircraft_capacity
+    </sql>
+
+    <sql id="findWithDetailsSelect">
+        SELECT
+        <include refid="flightColumnsWithAlias"/>,
+        <include refid="aircraftColumnsWithAlias"/>,
+        <include refid="com.solvd.airportsystem.persistence.repository.PassengerRepository.passengerColumnsWithAlias"/>
+    </sql>
+
+    <sql id="findWithDetailsJoins">
+        FROM flights f
+        LEFT JOIN aircraft act ON f.aircraft_id = act.id
+        LEFT JOIN tickets tk ON tk.flight_id = f.id
+        LEFT JOIN passengers psg ON tk.passenger_id = psg.id
+    </sql>
+
+    <resultMap id="FlightResultMap" type="Flight" autoMapping="false">
+        <id property="id" column="id"/>
+        <result property="flightNumber" column="flight_number"/>
+        <result property="destination" column="destination"/>
+        <result property="departureDate" column="departure_date" jdbcType="DATE"/>
+        <result property="departureTime" column="departure_time" jdbcType="TIMESTAMP"/>
+        <result property="delayed" column="is_delayed"/>
+    </resultMap>
+
+    <resultMap id="FlightWithDetailsResultMap" type="Flight" autoMapping="false">
+        <id property="id" column="flight_id"/>
+        <result property="flightNumber" column="flight_number"/>
+        <result property="destination" column="destination"/>
+        <result property="departureDate" column="departure_date" jdbcType="DATE"/>
+        <result property="departureTime" column="departure_time" jdbcType="TIMESTAMP"/>
+        <result property="delayed" column="is_delayed"/>
+        <association property="aircraft" javaType="Aircraft">
+            <id property="id" column="aircraft_id"/>
+            <result property="aircraftType" column="aircraft_type"/>
+            <result property="capacity" column="aircraft_capacity"/>
+        </association>
+        <collection property="passengers" ofType="Passenger">
+            <id property="id" column="passenger_id"/>
+            <result property="fullName" column="passenger_name"/>
+            <result property="passportNumber" column="passport_number"/>
+            <result property="birthDate" column="birth_date" jdbcType="DATE"/>
+        </collection>
+    </resultMap>
+
+    <insert id="create" parameterType="Flight" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO flights (airline_id, aircraft_id, gate_id, flight_number, destination, departure_date, departure_time, is_delayed)
+        VALUES (
+            1,
+            #{aircraft.id, jdbcType=BIGINT},
+            #{gate.id, jdbcType=BIGINT},
+            #{flightNumber},
+            #{destination},
+            #{departureDate, jdbcType=DATE},
+            #{departureTime, jdbcType=TIMESTAMP},
+            #{delayed}
+        )
+    </insert>
+
+    <update id="update" parameterType="Flight">
+        UPDATE flights
+        SET flight_number = #{flightNumber},
+            destination = #{destination},
+            departure_date = #{departureDate, jdbcType=DATE},
+            departure_time = #{departureTime, jdbcType=TIMESTAMP},
+            is_delayed = #{delayed}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM flights WHERE id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultMap="FlightResultMap">
+        SELECT
+        <include refid="flightColumns"/>
+        FROM flights
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="FlightResultMap">
+        SELECT
+        <include refid="flightColumns"/>
+        FROM flights
+    </select>
+
+    <select id="findAllWithAllData" resultMap="FlightWithDetailsResultMap">
+        <include refid="findWithDetailsSelect"/>
+        <include refid="findWithDetailsJoins"/>
+        <![CDATA[ORDER BY f.id, psg.id]]>
+    </select>
+
+</mapper>

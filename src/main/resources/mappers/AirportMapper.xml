@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airportsystem.persistence.repository.AirportRepository">
+
+    <sql id="airportColumns">
+        id,
+        name,
+        location,
+        international
+    </sql>
+
+    <resultMap id="AirportResultMap" type="Airport" autoMapping="false">
+        <id property="id" column="id"/>
+        <result property="airportName" column="name"/>
+        <result property="location" column="location"/>
+        <result property="international" column="international"/>
+    </resultMap>
+
+    <insert id="create" parameterType="Airport" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO airports (name, location, international)
+        VALUES (#{airportName}, #{location}, #{international})
+    </insert>
+
+    <update id="update" parameterType="Airport">
+        UPDATE airports
+        SET name = #{airportName}, location = #{location}, international = #{international}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM airports WHERE id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultMap="AirportResultMap">
+        SELECT
+        <include refid="airportColumns"/>
+        FROM airports
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="AirportResultMap">
+        SELECT
+        <include refid="airportColumns"/>
+        FROM airports
+    </select>
+
+</mapper>

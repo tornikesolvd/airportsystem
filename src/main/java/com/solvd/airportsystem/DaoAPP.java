@@ -146,7 +146,7 @@ public class DaoAPP {
             () -> System.out.println("  Flight not found")
         );
 
-        List<Flight> flightsWithDetails = flightService.findAllWithDetails();
+        List<Flight> flightsWithDetails = flightService.findAllWithAllData();
         flightsWithDetails.forEach(flight -> {
             System.out.println("  Flight: " + flight.getFlightNumber() + 
                              " to " + flight.getDestination());

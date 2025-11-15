@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airportsystem.persistence.repository.PilotRepository">
+
+    <sql id="pilotColumns">
+        id,
+        name,
+        license_number,
+        flight_hours,
+        certification
+    </sql>
+
+    <resultMap id="PilotResultMap" type="Pilot" autoMapping="false">
+        <id property="id" column="id"/>
+        <result property="pilotName" column="name"/>
+        <result property="licenseNumber" column="license_number"/>
+        <result property="flightHours" column="flight_hours"/>
+        <result property="certification" column="certification"/>
+    </resultMap>
+
+    <insert id="create" parameterType="Pilot" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO pilots (name, license_number, flight_hours, certification)
+        VALUES (#{pilotName}, #{licenseNumber}, #{flightHours}, #{certification})
+    </insert>
+
+    <update id="update" parameterType="Pilot">
+        UPDATE pilots
+        SET name = #{pilotName}, license_number = #{licenseNumber}, flight_hours = #{flightHours}, certification = #{certification}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM pilots WHERE id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultMap="PilotResultMap">
+        SELECT
+        <include refid="pilotColumns"/>
+        FROM pilots
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="PilotResultMap">
+        SELECT
+        <include refid="pilotColumns"/>
+        FROM pilots
+    </select>
+
+</mapper>

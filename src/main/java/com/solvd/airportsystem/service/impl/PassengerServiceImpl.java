@@ -4,8 +4,8 @@ import com.solvd.airportsystem.domain.Passenger;
 import com.solvd.airportsystem.domain.Ticket;
 import com.solvd.airportsystem.persistence.repository.PassengerRepository;
 import com.solvd.airportsystem.persistence.repository.TicketRepository;
-import com.solvd.airportsystem.persistence.repository.impl.PassengerRepositoryImpl;
-import com.solvd.airportsystem.persistence.repository.impl.TicketRepositoryImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.PassengerMapperImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.TicketMapperImpl;
 import com.solvd.airportsystem.service.PassengerService;
 
 import java.util.List;
@@ -17,8 +17,8 @@ public class PassengerServiceImpl implements PassengerService {
     private final TicketRepository ticketRepository;
 
     public PassengerServiceImpl() {
-        this.passengerRepository = new PassengerRepositoryImpl();
-        this.ticketRepository = new TicketRepositoryImpl();
+        this.passengerRepository = new PassengerMapperImpl();
+        this.ticketRepository = new TicketMapperImpl();
     }
 
     @Override
@@ -26,7 +26,6 @@ public class PassengerServiceImpl implements PassengerService {
         passenger.setId(null);
         passengerRepository.create(passenger);
 
-        // Create nested Tickets if they exist
         if (passenger.getTickets() != null && !passenger.getTickets().isEmpty()) {
             for (Ticket ticket : passenger.getTickets()) {
                 if (ticket.getId() == null) {

@@ -18,5 +18,6 @@ public interface FlightRepository {
     List<Flight> findAll();
 
     List<Flight> findAllWithAllData();
+
 }
 

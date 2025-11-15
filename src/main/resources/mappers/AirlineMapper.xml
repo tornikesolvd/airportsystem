@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airportsystem.persistence.repository.AirlineRepository">
+
+    <sql id="airlineColumns">
+        id,
+        name,
+        code
+    </sql>
+
+    <resultMap id="AirlineResultMap" type="Airline" autoMapping="false">
+        <id property="id" column="id"/>
+        <result property="airlineName" column="name"/>
+        <result property="airlineCode" column="code"/>
+    </resultMap>
+
+    <insert id="create" parameterType="Airline" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO airlines (name, code)
+        VALUES (#{airlineName}, #{airlineCode})
+    </insert>
+
+    <update id="update" parameterType="Airline">
+        UPDATE airlines
+        SET name = #{airlineName}, code = #{airlineCode}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM airlines WHERE id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultMap="AirlineResultMap">
+        SELECT
+        <include refid="airlineColumns"/>
+        FROM airlines
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="AirlineResultMap">
+        SELECT
+        <include refid="airlineColumns"/>
+        FROM airlines
+    </select>
+
+</mapper>

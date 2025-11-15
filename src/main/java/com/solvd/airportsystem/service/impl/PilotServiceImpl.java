@@ -2,7 +2,7 @@ package com.solvd.airportsystem.service.impl;
 
 import com.solvd.airportsystem.domain.Pilot;
 import com.solvd.airportsystem.persistence.repository.PilotRepository;
-import com.solvd.airportsystem.persistence.repository.impl.PilotRepositoryImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.PilotMapperImpl;
 import com.solvd.airportsystem.service.PilotService;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class PilotServiceImpl implements PilotService {
     private final PilotRepository pilotRepository;
 
     public PilotServiceImpl() {
-        this.pilotRepository = new PilotRepositoryImpl();
+        this.pilotRepository = new PilotMapperImpl();
     }
 
     @Override

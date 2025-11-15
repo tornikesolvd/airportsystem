@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.airportsystem.persistence.repository.AircraftRepository">
+
+    <sql id="aircraftColumns">
+        id,
+        type,
+        capacity
+    </sql>
+
+    <resultMap id="AircraftResultMap" type="Aircraft" autoMapping="false">
+        <id property="id" column="id"/>
+        <result property="aircraftType" column="type"/>
+        <result property="capacity" column="capacity"/>
+    </resultMap>
+
+    <insert id="create" parameterType="Aircraft" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO aircraft (type, type_id, capacity)
+        VALUES (#{aircraftType}, 1, #{capacity})
+    </insert>
+
+    <update id="update" parameterType="Aircraft">
+        UPDATE aircraft
+        SET type = #{aircraftType}, capacity = #{capacity}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM aircraft WHERE id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="Long" resultMap="AircraftResultMap">
+        SELECT
+        <include refid="aircraftColumns"/>
+        FROM aircraft
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="AircraftResultMap">
+        SELECT
+        <include refid="aircraftColumns"/>
+        FROM aircraft
+    </select>
+
+</mapper>

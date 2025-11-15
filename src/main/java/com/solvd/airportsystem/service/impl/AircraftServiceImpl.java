@@ -4,8 +4,8 @@ import com.solvd.airportsystem.domain.Aircraft;
 import com.solvd.airportsystem.domain.Pilot;
 import com.solvd.airportsystem.persistence.repository.AircraftRepository;
 import com.solvd.airportsystem.persistence.repository.PilotRepository;
-import com.solvd.airportsystem.persistence.repository.impl.AircraftRepositoryImpl;
-import com.solvd.airportsystem.persistence.repository.impl.PilotRepositoryImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.AircraftMapperImpl;
+import com.solvd.airportsystem.persistence.repository.mybatis.PilotMapperImpl;
 import com.solvd.airportsystem.service.AircraftService;
 
 import java.util.List;
@@ -17,8 +17,8 @@ public class AircraftServiceImpl implements AircraftService {
     private final PilotRepository pilotRepository;
 
     public AircraftServiceImpl() {
-        this.aircraftRepository = new AircraftRepositoryImpl();
-        this.pilotRepository = new PilotRepositoryImpl();
+        this.aircraftRepository = new AircraftMapperImpl();
+        this.pilotRepository = new PilotMapperImpl();
     }
 
     @Override
@@ -26,7 +26,6 @@ public class AircraftServiceImpl implements AircraftService {
         aircraft.setId(null);
         aircraftRepository.create(aircraft);
 
-        // Create nested Pilots if they exist
         if (aircraft.getPilots() != null && !aircraft.getPilots().isEmpty()) {
             for (Pilot pilot : aircraft.getPilots()) {
                 if (pilot.getId() == null) {
