@@ -8,9 +8,13 @@ import java.util.Optional;
 public interface PassengerRepository {
 
     void create(Passenger passenger);
+
     void update(Passenger passenger);
+
     void deleteById(Long id);
+
     Optional<Passenger> findById(Long id);
+
     List<Passenger> findAll();
 }
 

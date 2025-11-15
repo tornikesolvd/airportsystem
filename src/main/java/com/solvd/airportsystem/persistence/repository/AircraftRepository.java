@@ -8,9 +8,13 @@ import java.util.Optional;
 public interface AircraftRepository {
 
     void create(Aircraft aircraft);
+
     void update(Aircraft aircraft);
+
     void deleteById(Long id);
+
     Optional<Aircraft> findById(Long id);
+
     List<Aircraft> findAll();
 }
 

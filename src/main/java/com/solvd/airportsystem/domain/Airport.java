@@ -1,6 +1,6 @@
 package com.solvd.airportsystem.domain;
 
-import com.solvd.airportsystem.identity.Staff;
+import com.solvd.airportsystem.staff.Staff;
 import com.solvd.airportsystem.terminal.Terminal;
 import jakarta.xml.bind.annotation.*;
 
@@ -94,4 +94,5 @@ public class Airport {
     }
 
 }
+
 

@@ -8,10 +8,15 @@ import java.util.Optional;
 public interface FlightService {
 
     Flight create(Flight flight);
+
     Flight update(Flight flight);
+
     void deleteById(Long id);
+
     Optional<Flight> findById(Long id);
+
     List<Flight> findAll();
+
     List<Flight> findAllWithDetails();
 }
 

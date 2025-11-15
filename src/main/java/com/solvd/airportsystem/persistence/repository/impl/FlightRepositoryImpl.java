@@ -3,15 +3,16 @@ package com.solvd.airportsystem.persistence.repository.impl;
 import com.solvd.airportsystem.domain.Aircraft;
 import com.solvd.airportsystem.domain.Airline;
 import com.solvd.airportsystem.domain.Flight;
+import com.solvd.airportsystem.domain.Passenger;
 import com.solvd.airportsystem.gate.Gate;
 import com.solvd.airportsystem.persistence.ConnectionPool;
 import com.solvd.airportsystem.persistence.repository.FlightRepository;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class FlightRepositoryImpl implements FlightRepository {
@@ -139,7 +140,7 @@ public class FlightRepositoryImpl implements FlightRepository {
     }
 
     @Override
-    public List<Flight> findAllWithDetails() {
+    public List<Flight> findAllWithAllData() {
         Connection connection = CONNECTION_POOL.getConnection();
         String sql = "SELECT " +
                 "f.id AS flight_id, f.flight_number, f.destination, f.departure_date, f.departure_time, f.is_delayed, " +
@@ -147,58 +148,84 @@ public class FlightRepositoryImpl implements FlightRepository {
                 "act.id AS aircraft_id, act.type AS aircraft_type, act.capacity AS aircraft_capacity, " +
                 "g.id AS gate_id, g.number AS gate_number, g.type AS gate_type, g.available AS gate_available, " +
                 "t.id AS terminal_id, t.name AS terminal_name, " +
-                "ap.id AS airport_id, ap.name AS airport_name, ap.location AS airport_location " +
+                "ap.id AS airport_id, ap.name AS airport_name, ap.location AS airport_location, " +
+                "psg.id AS passenger_id, psg.name AS passenger_name, psg.passport_number, psg.birth_date " +
                 "FROM flights f " +
                 "LEFT JOIN airlines al ON f.airline_id = al.id " +
                 "LEFT JOIN aircraft act ON f.aircraft_id = act.id " +
                 "LEFT JOIN gates g ON f.gate_id = g.id " +
                 "LEFT JOIN terminals t ON g.terminal_id = t.id " +
                 "LEFT JOIN airports ap ON t.airport_id = ap.id " +
-                "ORDER BY f.id";
-        List<Flight> flights = new ArrayList<>();
+                "LEFT JOIN tickets tk ON tk.flight_id = f.id " +
+                "LEFT JOIN passengers psg ON tk.passenger_id = psg.id " +
+                "ORDER BY f.id, psg.id";
+        Map<Long, Flight> flightMap = new LinkedHashMap<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Flight flight = new Flight();
-                flight.setId(resultSet.getLong("flight_id"));
-                flight.setFlightNumber(resultSet.getString("flight_number"));
-                flight.setDestination(resultSet.getString("destination"));
-                Date departureDate = resultSet.getDate("departure_date");
-                if (departureDate != null) {
-                    flight.setDepartureDate(departureDate.toLocalDate());
+                Long flightId = resultSet.getLong("flight_id");
+                Flight flight = flightMap.get(flightId);
+
+                if (flight == null) {
+                    flight = new Flight();
+                    flight.setId(flightId);
+                    flight.setFlightNumber(resultSet.getString("flight_number"));
+                    flight.setDestination(resultSet.getString("destination"));
+                    Date departureDate = resultSet.getDate("departure_date");
+                    if (departureDate != null) {
+                        flight.setDepartureDate(departureDate.toLocalDate());
+                    }
+                    Timestamp departureTime = resultSet.getTimestamp("departure_time");
+                    if (departureTime != null) {
+                        flight.setDepartureTime(departureTime.toLocalDateTime());
+                    }
+                    flight.setDelayed(resultSet.getBoolean("is_delayed"));
+
+                    Airline airline = new Airline();
+                    airline.setId(resultSet.getLong("airline_id"));
+                    airline.setAirlineName(resultSet.getString("airline_name"));
+                    airline.setAirlineCode(resultSet.getString("airline_code"));
+
+                    Aircraft aircraft = new Aircraft();
+                    aircraft.setId(resultSet.getLong("aircraft_id"));
+                    aircraft.setAircraftType(resultSet.getString("aircraft_type"));
+                    aircraft.setCapacity(resultSet.getInt("aircraft_capacity"));
+                    flight.setAircraft(aircraft);
+
+                    Gate gate = new Gate();
+                    gate.setId(resultSet.getLong("gate_id"));
+                    gate.setGateNumber(resultSet.getString("gate_number"));
+                    gate.setGateType(resultSet.getString("gate_type"));
+                    gate.setAvailable(resultSet.getBoolean("gate_available"));
+                    flight.setGate(gate);
+
+                    flight.setPassengers(new ArrayList<>());
+                    flightMap.put(flightId, flight);
                 }
-                Timestamp departureTime = resultSet.getTimestamp("departure_time");
-                if (departureTime != null) {
-                    flight.setDepartureTime(departureTime.toLocalDateTime());
+
+                Long passengerId = resultSet.getLong("passenger_id");
+                if (passengerId > 0 && flight.getPassengers() != null) {
+                    boolean passengerExists = flight.getPassengers().stream()
+                            .anyMatch(p -> p.getId() != null && p.getId().equals(passengerId));
+                    if (!passengerExists) {
+                        Passenger passenger = new Passenger();
+                        passenger.setId(passengerId);
+                        passenger.setFullName(resultSet.getString("passenger_name"));
+                        passenger.setPassportNumber(resultSet.getString("passport_number"));
+                        Date birthDate = resultSet.getDate("birth_date");
+                        if (birthDate != null) {
+                            passenger.setBirthDate(birthDate.toLocalDate());
+                        }
+                        flight.getPassengers().add(passenger);
+                    }
                 }
-                flight.setDelayed(resultSet.getBoolean("is_delayed"));
-
-                Airline airline = new Airline();
-                airline.setId(resultSet.getLong("airline_id"));
-                airline.setAirlineName(resultSet.getString("airline_name"));
-                airline.setAirlineCode(resultSet.getString("airline_code"));
-
-                Aircraft aircraft = new Aircraft();
-                aircraft.setId(resultSet.getLong("aircraft_id"));
-                aircraft.setAircraftType(resultSet.getString("aircraft_type"));
-                aircraft.setCapacity(resultSet.getInt("aircraft_capacity"));
-                flight.setAircraft(aircraft);
-
-                Gate gate = new Gate();
-                gate.setId(resultSet.getLong("gate_id"));
-                gate.setGateNumber(resultSet.getString("gate_number"));
-                gate.setGateType(resultSet.getString("gate_type"));
-                gate.setAvailable(resultSet.getBoolean("gate_available"));
-                flight.setGate(gate);
-
-                flights.add(flight);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Unable to find flights with details", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return flights;
+        return new ArrayList<>(flightMap.values());
     }
 }
 

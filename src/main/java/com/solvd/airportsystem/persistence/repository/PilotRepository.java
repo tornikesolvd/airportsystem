@@ -8,9 +8,13 @@ import java.util.Optional;
 public interface PilotRepository {
 
     void create(Pilot pilot);
+
     void update(Pilot pilot);
+
     void deleteById(Long id);
+
     Optional<Pilot> findById(Long id);
+
     List<Pilot> findAll();
 }
 

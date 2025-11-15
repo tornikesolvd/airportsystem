@@ -8,9 +8,13 @@ import java.util.Optional;
 public interface AirportRepository {
 
     void create(Airport airport);
+
     void update(Airport airport);
+
     void deleteById(Long id);
+
     Optional<Airport> findById(Long id);
+
     List<Airport> findAll();
 }
 

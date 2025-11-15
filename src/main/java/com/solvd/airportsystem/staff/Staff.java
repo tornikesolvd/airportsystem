@@ -1,4 +1,4 @@
-package com.solvd.airportsystem.identity;
+package com.solvd.airportsystem.staff;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
