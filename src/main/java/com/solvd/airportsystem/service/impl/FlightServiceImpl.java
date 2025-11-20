@@ -2,13 +2,11 @@ package com.solvd.airportsystem.service.impl;
 
 import com.solvd.airportsystem.domain.Aircraft;
 import com.solvd.airportsystem.domain.Flight;
-import com.solvd.airportsystem.persistence.repository.AircraftRepository;
-import com.solvd.airportsystem.persistence.repository.AirlineRepository;
-import com.solvd.airportsystem.persistence.repository.FlightRepository;
-import com.solvd.airportsystem.persistence.repository.mybatis.AircraftMapperImpl;
-import com.solvd.airportsystem.persistence.repository.mybatis.AirlineMapperImpl;
-import com.solvd.airportsystem.persistence.repository.mybatis.FlightMapperImpl;
+import com.solvd.airportsystem.persistence.FlightRepository;
+import com.solvd.airportsystem.service.AircraftService;
 import com.solvd.airportsystem.service.FlightService;
+import com.solvd.airportsystem.service.updater.EntityUpdater;
+import com.solvd.airportsystem.service.validator.EntityValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,13 +14,11 @@ import java.util.Optional;
 public class FlightServiceImpl implements FlightService {
 
     private final FlightRepository flightRepository;
-    private final AircraftRepository aircraftRepository;
-    private final AirlineRepository airlineRepository;
+    private final AircraftService aircraftService;
 
-    public FlightServiceImpl() {
-        this.flightRepository = new FlightMapperImpl();
-        this.aircraftRepository = new AircraftMapperImpl();
-        this.airlineRepository = new AirlineMapperImpl();
+    public FlightServiceImpl(FlightRepository flightRepository, AircraftService aircraftService) {
+        this.flightRepository = flightRepository;
+        this.aircraftService = aircraftService;
     }
 
     @Override
@@ -32,7 +28,7 @@ public class FlightServiceImpl implements FlightService {
         if (flight.getAircraft() != null && flight.getAircraft().getId() == null) {
             Aircraft aircraft = flight.getAircraft();
             aircraft.setId(null);
-            aircraftRepository.create(aircraft);
+            aircraftService.create(aircraft);
         }
 
         flightRepository.create(flight);
@@ -41,24 +37,26 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Flight update(Flight flight) {
-        Flight existingFlight = flightRepository.findById(flight.getId())
-                .orElseThrow(() -> new RuntimeException("Flight with id " + flight.getId() + " cannot be found"));
-        existingFlight.setFlightNumber(flight.getFlightNumber());
-        existingFlight.setDestination(flight.getDestination());
-        existingFlight.setDepartureDate(flight.getDepartureDate());
-        existingFlight.setDepartureTime(flight.getDepartureTime());
-        existingFlight.setDelayed(flight.isDelayed());
+        Flight existingFlight = validateAndGet(flight.getId());
+        EntityUpdater.updateFlight(existingFlight, flight);
         flightRepository.update(existingFlight);
         return existingFlight;
     }
 
+    private Flight validateAndGet(Long id) {
+        Optional<Flight> optional = flightRepository.findById(id);
+        return EntityValidator.validateEntityExists(optional.orElse(null), "Flight", id);
+    }
+
     @Override
     public void deleteById(Long id) {
+        EntityValidator.validateId(id, "Flight");
         flightRepository.deleteById(id);
     }
 
     @Override
     public Optional<Flight> findById(Long id) {
+        EntityValidator.validateId(id, "Flight");
         return flightRepository.findById(id);
     }
 

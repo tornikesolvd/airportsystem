@@ -2,7 +2,6 @@ package com.solvd.airportsystem.domain;
 
 import com.solvd.airportsystem.adapter.LocalDateAdapter;
 import com.solvd.airportsystem.adapter.LocalDateTimeAdapter;
-import com.solvd.airportsystem.gate.Gate;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -107,5 +106,7 @@ public class Flight {
         this.gate = gate;
     }
 }
+
+
 
 

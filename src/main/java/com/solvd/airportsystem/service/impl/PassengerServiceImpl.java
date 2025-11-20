@@ -2,11 +2,11 @@ package com.solvd.airportsystem.service.impl;
 
 import com.solvd.airportsystem.domain.Passenger;
 import com.solvd.airportsystem.domain.Ticket;
-import com.solvd.airportsystem.persistence.repository.PassengerRepository;
-import com.solvd.airportsystem.persistence.repository.TicketRepository;
-import com.solvd.airportsystem.persistence.repository.mybatis.PassengerMapperImpl;
-import com.solvd.airportsystem.persistence.repository.mybatis.TicketMapperImpl;
+import com.solvd.airportsystem.persistence.PassengerRepository;
 import com.solvd.airportsystem.service.PassengerService;
+import com.solvd.airportsystem.service.TicketService;
+import com.solvd.airportsystem.service.updater.EntityUpdater;
+import com.solvd.airportsystem.service.validator.EntityValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,11 +14,11 @@ import java.util.Optional;
 public class PassengerServiceImpl implements PassengerService {
 
     private final PassengerRepository passengerRepository;
-    private final TicketRepository ticketRepository;
+    private final TicketService ticketService;
 
-    public PassengerServiceImpl() {
-        this.passengerRepository = new PassengerMapperImpl();
-        this.ticketRepository = new TicketMapperImpl();
+    public PassengerServiceImpl(PassengerRepository passengerRepository, TicketService ticketService) {
+        this.passengerRepository = passengerRepository;
+        this.ticketService = ticketService;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class PassengerServiceImpl implements PassengerService {
             for (Ticket ticket : passenger.getTickets()) {
                 if (ticket.getId() == null) {
                     ticket.setId(null);
-                    ticketRepository.create(ticket);
+                    ticketService.create(ticket);
                 }
             }
         }
@@ -40,22 +40,26 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public Passenger update(Passenger passenger) {
-        Passenger existingPassenger = passengerRepository.findById(passenger.getId())
-                .orElseThrow(() -> new RuntimeException("Passenger with id " + passenger.getId() + " cannot be found"));
-        existingPassenger.setFullName(passenger.getFullName());
-        existingPassenger.setPassportNumber(passenger.getPassportNumber());
-        existingPassenger.setBirthDate(passenger.getBirthDate());
+        Passenger existingPassenger = validateAndGet(passenger.getId());
+        EntityUpdater.updatePassenger(existingPassenger, passenger);
         passengerRepository.update(existingPassenger);
         return existingPassenger;
     }
 
+    private Passenger validateAndGet(Long id) {
+        Optional<Passenger> optional = passengerRepository.findById(id);
+        return EntityValidator.validateEntityExists(optional.orElse(null), "Passenger", id);
+    }
+
     @Override
     public void deleteById(Long id) {
+        EntityValidator.validateId(id, "Passenger");
         passengerRepository.deleteById(id);
     }
 
     @Override
     public Optional<Passenger> findById(Long id) {
+        EntityValidator.validateId(id, "Passenger");
         return passengerRepository.findById(id);
     }
 

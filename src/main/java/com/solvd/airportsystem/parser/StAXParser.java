@@ -4,8 +4,8 @@ import com.solvd.airportsystem.domain.Airline;
 import com.solvd.airportsystem.domain.Airport;
 import com.solvd.airportsystem.domain.Flight;
 import com.solvd.airportsystem.domain.Passenger;
-import com.solvd.airportsystem.staff.Staff;
-import com.solvd.airportsystem.terminal.Terminal;
+import com.solvd.airportsystem.domain.Staff;
+import com.solvd.airportsystem.domain.Terminal;
 import com.solvd.airportsystem.domain.Ticket;
 
 import javax.xml.stream.XMLInputFactory;
@@ -148,7 +148,7 @@ public class StAXParser {
                                     break;
                                 case "ticketId":
                                     Ticket ticket = new Ticket();
-                                    ticket.setTicketId(text);
+                                    ticket.setId(new Long(text));
                                     tickets.add(ticket);
                                     break;
                                 case "price":

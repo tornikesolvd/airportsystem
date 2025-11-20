@@ -2,11 +2,11 @@ package com.solvd.airportsystem.service.impl;
 
 import com.solvd.airportsystem.domain.Airline;
 import com.solvd.airportsystem.domain.Flight;
-import com.solvd.airportsystem.persistence.repository.AirlineRepository;
-import com.solvd.airportsystem.persistence.repository.FlightRepository;
-import com.solvd.airportsystem.persistence.repository.mybatis.AirlineMapperImpl;
-import com.solvd.airportsystem.persistence.repository.mybatis.FlightMapperImpl;
+import com.solvd.airportsystem.persistence.AirlineRepository;
 import com.solvd.airportsystem.service.AirlineService;
+import com.solvd.airportsystem.service.FlightService;
+import com.solvd.airportsystem.service.updater.EntityUpdater;
+import com.solvd.airportsystem.service.validator.EntityValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,11 +14,11 @@ import java.util.Optional;
 public class AirlineServiceImpl implements AirlineService {
 
     private final AirlineRepository airlineRepository;
-    private final FlightRepository flightRepository;
+    private final FlightService flightService;
 
-    public AirlineServiceImpl() {
-        this.airlineRepository = new AirlineMapperImpl();
-        this.flightRepository = new FlightMapperImpl();
+    public AirlineServiceImpl(AirlineRepository airlineRepository, FlightService flightService) {
+        this.airlineRepository = airlineRepository;
+        this.flightService = flightService;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class AirlineServiceImpl implements AirlineService {
             for (Flight flight : airline.getFlights()) {
                 if (flight.getId() == null) {
                     flight.setId(null);
-                    flightRepository.create(flight);
+                    flightService.create(flight);
                 }
             }
         }
@@ -40,21 +40,26 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public Airline update(Airline airline) {
-        Airline existingAirline = airlineRepository.findById(airline.getId())
-                .orElseThrow(() -> new RuntimeException("Airline with id " + airline.getId() + " cannot be found"));
-        existingAirline.setAirlineName(airline.getAirlineName());
-        existingAirline.setAirlineCode(airline.getAirlineCode());
+        Airline existingAirline = validateAndGet(airline.getId());
+        EntityUpdater.updateAirline(existingAirline, airline);
         airlineRepository.update(existingAirline);
         return existingAirline;
     }
 
+    private Airline validateAndGet(Long id) {
+        Optional<Airline> optional = airlineRepository.findById(id);
+        return EntityValidator.validateEntityExists(optional.orElse(null), "Airline", id);
+    }
+
     @Override
     public void deleteById(Long id) {
+        EntityValidator.validateId(id, "Airline");
         airlineRepository.deleteById(id);
     }
 
     @Override
     public Optional<Airline> findById(Long id) {
+        EntityValidator.validateId(id, "Airline");
         return airlineRepository.findById(id);
     }
 

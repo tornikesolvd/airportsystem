@@ -1,9 +1,10 @@
 package com.solvd.airportsystem.service.impl;
 
 import com.solvd.airportsystem.domain.Pilot;
-import com.solvd.airportsystem.persistence.repository.PilotRepository;
-import com.solvd.airportsystem.persistence.repository.mybatis.PilotMapperImpl;
+import com.solvd.airportsystem.persistence.PilotRepository;
 import com.solvd.airportsystem.service.PilotService;
+import com.solvd.airportsystem.service.updater.EntityUpdater;
+import com.solvd.airportsystem.service.validator.EntityValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +13,8 @@ public class PilotServiceImpl implements PilotService {
 
     private final PilotRepository pilotRepository;
 
-    public PilotServiceImpl() {
-        this.pilotRepository = new PilotMapperImpl();
+    public PilotServiceImpl(PilotRepository pilotRepository) {
+        this.pilotRepository = pilotRepository;
     }
 
     @Override
@@ -25,23 +26,26 @@ public class PilotServiceImpl implements PilotService {
 
     @Override
     public Pilot update(Pilot pilot) {
-        Pilot existingPilot = pilotRepository.findById(pilot.getId())
-                .orElseThrow(() -> new RuntimeException("Pilot with id " + pilot.getId() + " cannot be found"));
-        existingPilot.setPilotName(pilot.getPilotName());
-        existingPilot.setLicenseNumber(pilot.getLicenseNumber());
-        existingPilot.setFlightHours(pilot.getFlightHours());
-        existingPilot.setCertification(pilot.getCertification());
+        Pilot existingPilot = validateAndGet(pilot.getId());
+        EntityUpdater.updatePilot(existingPilot, pilot);
         pilotRepository.update(existingPilot);
         return existingPilot;
     }
 
+    private Pilot validateAndGet(Long id) {
+        Optional<Pilot> optional = pilotRepository.findById(id);
+        return EntityValidator.validateEntityExists(optional.orElse(null), "Pilot", id);
+    }
+
     @Override
     public void deleteById(Long id) {
+        EntityValidator.validateId(id, "Pilot");
         pilotRepository.deleteById(id);
     }
 
     @Override
     public Optional<Pilot> findById(Long id) {
+        EntityValidator.validateId(id, "Pilot");
         return pilotRepository.findById(id);
     }
 

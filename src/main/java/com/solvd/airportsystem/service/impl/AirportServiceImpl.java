@@ -1,9 +1,10 @@
 package com.solvd.airportsystem.service.impl;
 
 import com.solvd.airportsystem.domain.Airport;
-import com.solvd.airportsystem.persistence.repository.AirportRepository;
-import com.solvd.airportsystem.persistence.repository.mybatis.AirportMapperImpl;
+import com.solvd.airportsystem.persistence.AirportRepository;
 import com.solvd.airportsystem.service.AirportService;
+import com.solvd.airportsystem.service.updater.EntityUpdater;
+import com.solvd.airportsystem.service.validator.EntityValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +13,8 @@ public class AirportServiceImpl implements AirportService {
 
     private final AirportRepository airportRepository;
 
-    public AirportServiceImpl() {
-        this.airportRepository = new AirportMapperImpl();
+    public AirportServiceImpl(AirportRepository airportRepository) {
+        this.airportRepository = airportRepository;
     }
 
     @Override
@@ -25,22 +26,26 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public Airport update(Airport airport) {
-        Airport existingAirport = airportRepository.findById(airport.getId())
-                .orElseThrow(() -> new RuntimeException("Airport with id " + airport.getId() + " cannot be found"));
-        existingAirport.setAirportName(airport.getAirportName());
-        existingAirport.setLocation(airport.getLocation());
-        existingAirport.setInternational(airport.isInternational());
+        Airport existingAirport = validateAndGet(airport.getId());
+        EntityUpdater.updateAirport(existingAirport, airport);
         airportRepository.update(existingAirport);
         return existingAirport;
     }
 
+    private Airport validateAndGet(Long id) {
+        Optional<Airport> optional = airportRepository.findById(id);
+        return EntityValidator.validateEntityExists(optional.orElse(null), "Airport", id);
+    }
+
     @Override
     public void deleteById(Long id) {
+        EntityValidator.validateId(id, "Airport");
         airportRepository.deleteById(id);
     }
 
     @Override
     public Optional<Airport> findById(Long id) {
+        EntityValidator.validateId(id, "Airport");
         return airportRepository.findById(id);
     }
 

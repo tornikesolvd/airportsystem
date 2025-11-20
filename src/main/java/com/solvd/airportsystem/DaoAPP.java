@@ -6,13 +6,19 @@ import com.solvd.airportsystem.domain.Aircraft;
 import com.solvd.airportsystem.domain.Flight;
 import com.solvd.airportsystem.domain.Passenger;
 import com.solvd.airportsystem.domain.Pilot;
+import com.solvd.airportsystem.pattern.abstractfactory.MyBatisRepositoryFactory;
+import com.solvd.airportsystem.pattern.abstractfactory.RepositoryFactory;
 import com.solvd.airportsystem.service.*;
-import com.solvd.airportsystem.service.impl.*;
+import com.solvd.airportsystem.service.factory.ServiceFactory;
 
 import java.util.List;
 
 public class DaoAPP {
+    private static ServiceFactory serviceFactory;
+
     public static void main(String[] args) {
+        RepositoryFactory repositoryFactory = new MyBatisRepositoryFactory();
+        serviceFactory = new ServiceFactory(repositoryFactory);
 
         testAirportRepository();
         testAirlineRepository();
@@ -25,7 +31,7 @@ public class DaoAPP {
 
     private static void testAirportRepository() {
 
-        AirportService airportService = new AirportServiceImpl();
+        AirportService airportService = serviceFactory.createAirportService();
 
         List<Airport> airports = airportService.findAll();
         airports.forEach(airport -> 
@@ -58,7 +64,7 @@ public class DaoAPP {
 
     private static void testAirlineRepository() {
 
-        AirlineService airlineService = new AirlineServiceImpl();
+        AirlineService airlineService = serviceFactory.createAirlineService();
 
         List<Airline> airlines = airlineService.findAll();
         airlines.forEach(airline -> 
@@ -75,7 +81,7 @@ public class DaoAPP {
 
     private static void testAircraftRepository() {
 
-        AircraftService aircraftService = new AircraftServiceImpl();
+        AircraftService aircraftService = serviceFactory.createAircraftService();
 
         List<Aircraft> aircrafts = aircraftService.findAll();
         aircrafts.forEach(aircraft -> 
@@ -92,7 +98,7 @@ public class DaoAPP {
 
     private static void testPassengerRepository() {
 
-        PassengerService passengerService = new PassengerServiceImpl();
+        PassengerService passengerService = serviceFactory.createPassengerService();
 
         List<Passenger> passengers = passengerService.findAll();
         passengers.forEach(passenger -> 
@@ -110,7 +116,7 @@ public class DaoAPP {
 
     private static void testPilotRepository() {
 
-        PilotService pilotService = new PilotServiceImpl();
+        PilotService pilotService = serviceFactory.createPilotService();
 
         List<Pilot> pilots = pilotService.findAll();
         pilots.forEach(pilot -> 
@@ -130,7 +136,7 @@ public class DaoAPP {
 
     private static void testFlightRepository() {
 
-        FlightService flightService = new FlightServiceImpl();
+        FlightService flightService = serviceFactory.createFlightService();
 
         List<Flight> flights = flightService.findAll();
         flights.forEach(flight -> 

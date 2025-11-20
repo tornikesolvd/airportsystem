@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.airportsystem.persistence.repository.FlightRepository">
+<mapper namespace="com.solvd.airportsystem.persistence.FlightRepository">
 
     <sql id="flightColumns">
         id,
@@ -32,7 +32,7 @@
         SELECT
         <include refid="flightColumnsWithAlias"/>,
         <include refid="aircraftColumnsWithAlias"/>,
-        <include refid="com.solvd.airportsystem.persistence.repository.PassengerRepository.passengerColumnsWithAlias"/>
+        <include refid="com.solvd.airportsystem.persistence.PassengerRepository.passengerColumnsWithAlias"/>
     </sql>
 
     <sql id="findWithDetailsJoins">
